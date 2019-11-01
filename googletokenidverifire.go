@@ -227,13 +227,10 @@ func urlsafeB64decode(str string) []byte {
 	return bt
 }
 
-func choiceKeyByKeyID(a []*keys, tknkid string) (*keys, error) {
-	if len(a) == 2 {
-		if a[0].Kid == tknkid {
-			return a[0], nil
-		}
-		if a[1].Kid == tknkid {
-			return a[1], nil
+func choiceKeyByKeyID(keys []*keys, tknkid string) (*keys, error) {
+	for _, key := range keys {
+		if key.Kid == tknkid {
+			return key, nil
 		}
 	}
 	return nil, ErrInvalidKid
